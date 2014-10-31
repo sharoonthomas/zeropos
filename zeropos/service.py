@@ -29,8 +29,7 @@ def same_device(dev1, dev2):
     return (
         (dev1.idVendor == dev2.idVendor) and
         (dev1.idProduct == dev2.idProduct) and
-        (dev1.address == dev2.address) and
-        (dev1.serial_number == dev2.serial_number)
+        (dev1.address == dev2.address)
     )
 
 
