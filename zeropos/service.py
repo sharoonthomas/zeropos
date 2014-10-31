@@ -24,6 +24,8 @@ def same_device(dev1, dev2):
     """
     Compares the two given devices and finds if they are the same
     """
+    if (dev1 is None) or (dev2 is None):
+        return False
     return (
         (dev1.idVendor == dev2.idVendor) and
         (dev1.idProduct == dev2.idProduct) and
