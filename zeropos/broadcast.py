@@ -1,4 +1,4 @@
-""" 
+"""
 Listener that announces the availability of the printing service
 """
 import socket
@@ -26,7 +26,7 @@ class Broadcast(object):
         if self._service_info is None:
             self._service_info = ServiceInfo(
                 "_trytonpos._tcp.local.",
-                "Openlabs POS Printer._trytonpos._tcp.local.",
+                "%s._trytonpos._tcp.local." % socket.gethostname(),
                 socket.inet_aton(self.address), self.port, 0, 0,
                 self.properties
             )
@@ -36,7 +36,7 @@ class Broadcast(object):
         """
         Register a new service for printing
         """
-        print("Registration of a service...")
+        print("Registration of service @ %s:%s" % (self.address, self.port))
         self.service.registerService(self.service_info)
 
     def unregister_zeroconf(self):

@@ -10,8 +10,9 @@ from version import VERSION, PACKAGE
 
 
 def get_config_dir():
-    return os.path.join(os.environ['HOME'], '.config', 'zeropos',
-            VERSION.rsplit('.', 1)[0])
+    return os.path.join(
+        os.environ['HOME'], '.config', 'zeropos', VERSION.rsplit('.', 1)[0]
+    )
 
 
 if not os.path.isdir(get_config_dir()):
@@ -25,6 +26,9 @@ class ConfigManager(object):
         self.defaults = {
             'port': 4000,
             'address': self.discover_local_ip(),
+            'vendor': 0x04b8,
+            'product': 0x0202,
+            'interface': 0,
         }
         self.config = {}
         self.options = {}
@@ -122,7 +126,7 @@ class ConfigManager(object):
                 value = True
             elif value.lower() == 'false':
                 value = False
-            if name == 'port':
+            if name in ('port', 'vendor', 'product', 'interface'):
                 value = int(value)
             self.config[name] = value
         return True

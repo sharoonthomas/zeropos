@@ -22,6 +22,12 @@ setup(
         'zeropos': 'zeropos',
     },
     packages=['zeropos'],
+    package_data={
+        'zeropos': [
+            'templates/*.html',
+            'static/*',
+        ],
+    },
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Plugins',
@@ -35,6 +41,7 @@ setup(
     ],
     license=LICENSE,
     install_requires=[
+        'zeroconf',
         'python-escpos',
         'flask',
         'gevent',
