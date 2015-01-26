@@ -8,6 +8,8 @@ import socket
 import os
 from version import VERSION, PACKAGE
 
+import netifaces
+
 
 def get_config_dir():
     return os.path.join(
@@ -33,6 +35,7 @@ class ConfigManager(object):
         self.config = {}
         self.options = {}
         self.arguments = []
+        print("Discovered IP: %s" % self.defaults['address'])
 
     def parse(self):
         parser = optparse.OptionParser(
@@ -150,9 +153,14 @@ class ConfigManager(object):
         """
         Try to find the local IP address and return it
         """
-        rv = socket.gethostbyname(socket.gethostname())
-        print("Discovered IP: %s" % rv)
-        return rv
+        for iface_name in netifaces.interfaces():
+            if iface_name == 'lo0':
+                # Ignore local loops
+                continue
+            iface = netifaces.ifaddresses(iface_name)
+            for af_link in iface.get(netifaces.AF_INET, []):
+                if 'addr' in af_link:
+                    return af_link['addr']
 
 
 CONFIG = ConfigManager()

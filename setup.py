@@ -45,6 +45,7 @@ setup(
         'python-escpos',
         'flask',
         'gevent',
+        'netifaces',
     ],
     zip_safe=False,
     scripts=['bin/zeroposd'],
